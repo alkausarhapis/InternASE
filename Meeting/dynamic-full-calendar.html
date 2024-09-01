@@ -4,10 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dynamic Full Calendar</title>
+    <!-- FullCalendar CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" rel="stylesheet" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+    <!-- jQuery and FullCalendar JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -68,85 +75,118 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <div id="calendar"></div>
+<div class="container">
+    <div id="calendar"></div>
 
-        <div class="form-container">
-            <h2>Create New Event</h2>
-            <form id="eventForm">
-                <input type="text" name="nama_agenda" placeholder="Event Title" required>
-                <input type="datetime-local" name="waktu_agenda" required>
-                <input type="text" name="jenis_agenda" placeholder="Event Type" required>
-                <textarea name="deskripsi" placeholder="Event Description" required></textarea>
-                <button type="submit">Save Event</button>
-            </form>
+    <!-- Modal for Adding Events -->
+    <div class="modal fade" id="event_entry_modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabel">Add New Event</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="event_name">Event Name</label>
+                        <input type="text" name="event_name" id="event_name" class="form-control" placeholder="Enter your event name">
+                    </div>
+                    <div class="form-group">
+                        <label for="event_start_date">Event Start</label>
+                        <input type="date" name="event_start_date" id="event_start_date" class="form-control" placeholder="Event start date">
+                    </div>
+                    <div class="form-group">
+                        <label for="event_end_date">Event End</label>
+                        <input type="date" name="event_end_date" id="event_end_date" class="form-control" placeholder="Event end date">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="save_event()">Save Event</button>
+                </div>
+            </div>
         </div>
     </div>
+</div>
 
-    <script>
-        $(document).ready(function() {
-            display_events(); // Call the function to display events when the page is ready
-        });
+<script>
+$(document).ready(function() {
+    display_events();
+});
 
-        function display_events() {
-            var events = new Array();
-            $.ajax({
-                url: 'display_event.php',  
-                dataType: 'json',
-                success: function (response) {
-                    var result = response.data;
-                    $.each(result, function (i, item) {
-                        events.push({
-                            event_id: item.agenda_id,
-                            title: item.nama_agenda,
-                            start: item.waktu_agenda,
-                            color: item.color
-                        });
-                    });
-                    
-                    $('#calendar').fullCalendar({
-                        defaultView: 'month',
-                        timeZone: 'local',
-                        editable: true,
-                        selectable: true,
-                        selectHelper: true,
-                        select: function(start, end) {
-                            $('#event_start_date').val(moment(start).format('YYYY-MM-DD'));
-                            $('#event_end_date').val(moment(end).format('YYYY-MM-DD'));
-                            $('#event_entry_modal').modal('show');
-                        },
-                        events: events,
-                        eventRender: function(event, element) { 
-                            element.bind('click', function() {
-                                alert(event.event_id);
-                            });
-                        }
-                    }); 
-                },
-                error: function (xhr, status) {
-                    alert('Error fetching events');
-                }
+function display_events() {
+    var events = new Array();
+    $.ajax({
+        url: 'display_event.php',  
+        dataType: 'json',
+        success: function (response) {
+            var result = response.data;
+            $.each(result, function (i, item) {
+                events.push({
+                    event_id: item.agenda_id,
+                    title: item.nama_agenda,
+                    start: item.waktu_agenda,
+                    color: item.color
+                });
             });
-        }
-
-        document.getElementById('eventForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            let formData = new FormData(this);
-
-            fetch('save_event.php', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                alert(data.msg);
-                if (data.status) {
-                    $('#calendar').fullCalendar('refetchEvents'); // Refresh the events on the calendar
+            
+            $('#calendar').fullCalendar({
+                defaultView: 'month',
+                timeZone: 'local',
+                editable: true,
+                selectable: true,
+                selectHelper: true,
+                select: function(start, end) {
+                    $('#event_start_date').val(moment(start).format('YYYY-MM-DD'));
+                    $('#event_end_date').val(moment(end).format('YYYY-MM-DD'));
+                    $('#event_entry_modal').modal('show');
+                },
+                events: events,
+                eventRender: function(event, element) { 
+                    element.bind('click', function() {
+                        alert(event.event_id);
+                    });
                 }
-            })
-            .catch(error => console.error('Error saving event:', error));
-        });
-    </script>
+            }); 
+        },
+        error: function (xhr, status) {
+            alert('Error fetching events');
+        }
+    });
+}
+
+function save_event() {
+    var event_name = $("#event_name").val();
+    var event_start_date = $("#event_start_date").val();
+    var event_end_date = $("#event_end_date").val();
+    
+    if (event_name == "" || event_start_date == "" || event_end_date == "") {
+        alert("Please enter all required details.");
+        return false;
+    }
+    
+    $.ajax({
+        url: "save_event.php",
+        type: "POST",
+        dataType: 'json',
+        data: {event_name: event_name, event_start_date: event_start_date, event_end_date: event_end_date},
+        success: function(response) {
+            $('#event_entry_modal').modal('hide');  
+            if (response.status == true) {
+                alert(response.msg);
+                location.reload();
+            } else {
+                alert(response.msg);
+            }
+        },
+        error: function (xhr, status) {
+            console.log('ajax error = ' + xhr.statusText);
+            alert('Error saving event');
+        }
+    });    
+    return false;
+}
+</script>
 </body>
 </html>
