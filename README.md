@@ -1,3 +1,3 @@
 # InternASE
 
-jika ingin mulai untuk mencoba front end, bisa di ulai dariindex.html nya ya 
+jika ingin mulai untuk mencoba front end, bisa di mulai dari index.html nya ya 
