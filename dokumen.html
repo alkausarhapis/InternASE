@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div id="nav-container"></div>
+    <!-- Navigation Container -->
+
+    <h1 class="main-title">Document</h1>
+    <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Search...">
+        <button onclick="searchTable()">Search</button>
+    </div>
+
+    <div class="table-container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Status</th>
+                    <th>Borrower</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <strong>Sustainable Minds</strong><br>
+                        <small>Eli Blevis</small>
+                    </td>
+                    <td class="status">available</td>
+                    <td>
+                        <button class="borrow-button btn btn-primary" data-toggle="modal" data-target="#borrowModal">Borrow</button>
+                        <button class="icon-button"><i class="fa fa-trash"></i></button>
+                        <button class="icon-button"><i class="fa fa-ellipsis-h"></i></button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>Pemanfaatan Teknologi Game Untuk Pembelajaran Rio Ganteng</strong><br>
+                        <small>AZ Falani, PL Ekawati</small>
+                    </td>
+                    <td class="status">available</td>
+                    <td>
+                        <button class="borrow-button btn btn-primary" data-toggle="modal" data-target="#borrowModal">Borrow</button>
+                        <button class="icon-button"><i class="fa fa-trash"></i></button>
+                        <button class="icon-button"><i class="fa fa-ellipsis-h"></i></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <button class="new-doc-button btn btn-primary" data-toggle="modal" data-target="#newDocModal">New Document</button>
+
+    <!-- Modal New Document -->
+    <div class="modal fade" id="newDocModal" tabindex="-1" aria-labelledby="newDocModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="newDocModalLabel">New Document</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+
+                        <div class="form-group">
+                            <label for="documentTitle">Title</label>
+                            <input type="text" class="form-control" id="documentTitle" placeholder="Enter title">
+                        </div>
+                        <div class="form-group">
+                            <label for="documentStatus">Status</label>
+                            <select class="form-control" id="documentStatus">
+                                <option value="available">Available</option>
+                                <option value="borrowed">Borrowed</option>
+                                <option value="reserved">Reserved</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="documentBorrower">Borrower</label>
+                            <input type="text" class="form-control" id="documentBorrower" placeholder="Enter borrower name">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- masukkan button modal footer ke form ; button untuk save change dan semacamnya jadi submit  -->
+
+    <!-- Modal Borrow -->
+    <div class="modal fade" id="borrowModal" tabindex="-1" aria-labelledby="borrowModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #FF6F00;">
+                    <h5 class="modal-title" id="borrowModalLabel" style="color: white;">Borrow</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" style="color: white;">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="fa fa-book" style="font-size: 24px; margin-right: 10px;"></i>
+                        <div>
+                            <strong id="borrowModalTitle">Pemanfaatan Teknologi Game Untuk Pembelajaran Me...</strong><br>
+                            <small id="borrowModalAuthor">AZ Falani, PL Ekawati</small>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <label for="returnTime">Return Time</label>
+                        <input type="text" class="form-control datepicker" id="returnTime" placeholder="Select return date">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // Load the appropriate navigation file based on the user's role
+        const role = sessionStorage.getItem('role');
+        let navigationFile = '';
+
+        if (role === 'admin') {
+            navigationFile = 'navigasiadmin.html';
+        } else if (role === 'mahasiswa') {
+            navigationFile = 'navigasimahasiswa.html';
+        } else if (role === 'dosen') {
+            navigationFile = 'navigasidosen.html';
+        }
+
+        if (navigationFile) {
+            fetch(navigationFile)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('nav-container').innerHTML = data;
+                    // Reinitialize any JavaScript functionality for the navigation
+                    const accountName = sessionStorage.getItem('username');
+                    document.getElementById('accountName').textContent = accountName || "Guest";
+                })
+                .catch(error => console.error('Error loading navigation:', error));
+        }
+        
+        // Load the footer
+        fetch('navigasifooter.html')
+            .then(response => response.text())
+            .then(data => {
+                 document.body.insertAdjacentHTML('beforeend', data);
+            })
+            .catch(error => console.error('Error loading footer:', error));
+        
+        // Update modal with selected book details
+        document.addEventListener('DOMContentLoaded', function () {
+            const borrowButtons = document.querySelectorAll('.borrow-button');
+
+            borrowButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const row = this.closest('tr');
+                    const title = row.querySelector('strong').innerText;
+                    const author = row.querySelector('small').innerText;
+
+                    // Update modal content with selected book details
+                    document.getElementById('borrowModalTitle').innerText = title;
+                    document.getElementById('borrowModalAuthor').innerText = author;
+                });
+            });
+
+            // Initialize the datepicker
+            $('.datepicker').datepicker({
+                format: 'dd/mm/yyyy',
+                todayHighlight: true,
+                autoclose: true
+            });
+        });
+    </script>
+</body>
+
+</html>

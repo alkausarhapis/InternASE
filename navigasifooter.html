@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Footer</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Pastikan body dan html mengambil seluruh tinggi viewport */
+        html, body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Konten utama akan mengambil sisa ruang yang tersedia */
+        .content {
+            flex: 1;
+        }
+
+        /* Footer akan selalu berada di bawah */
+        .footer {
+            background-color: #1E1E24;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+        
+    </style>
+</head>
+
+<body>
+    <div class="content">
+        <!-- Konten utama Anda disini -->
+    </div>
+    <footer class="footer">
+        <p>&copy; 2024 Advanced Software Engineering Laboratory</p>
+    </footer>
+</body>
+
+</html>
