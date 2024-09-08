@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .search-box {
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+        }
+        td {
+            vertical-align: middle;
+        }
+        .borrow-btn {
+            background-color: #007bff;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Document</h1>
+        <div class="search-box">
+            <input type="text" id="searchInput" class="form-control" placeholder="Search...">
+            <button id="searchBtn" class="btn btn-outline-dark mt-2">Search</button>
+        </div>
+
+        <table class="table table-borderless">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Status</th>
+                    <th>Borrower</th>
+                </tr>
+            </thead>
+            <tbody id="documentsBody">
+                <!-- Documents will be loaded here -->
+            </tbody>
+        </table>
+
+        <button class="btn btn-primary">New Document</button>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            loadDocuments();
+
+            $('#searchBtn').on('click', function () {
+                const query = $('#searchInput').val();
+                searchDocuments(query);
+            });
+
+            function loadDocuments() {
+                $.ajax({
+                    url: 'fetch.php', 
+                    type: 'GET',
+                    success: function (response) {
+                        $('#documentsBody').empty();
+                        const documents = JSON.parse(response);
+                        documents.forEach(function (doc) {
+                            $('#documentsBody').append(`
+                                <tr>
+                                    <td>
+                                        <strong>${doc.judul}</strong><br>
+                                        ${doc.penulis}
+                                    </td>
+                                    <td>available</td>
+                                    <td>
+                                        <button class="borrow-btn" data-docid="${doc.doc_id}">Borrow</button>
+                                    </td>
+                                </tr>
+                            `);
+                        });
+
+                        $('.borrow-btn').on('click', function () {
+                            const docId = $(this).data('docid');
+                            borrowDocument(docId);
+                        });
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Error loading documents:", status, error);
+                    }
+                });
+            }
+
+            function searchDocuments(query) {
+                $.ajax({
+                    url: 'search.php', 
+                    type: 'GET',
+                    data: { query: query },
+                    success: function (response) {
+                        $('#documentsBody').empty();
+                        const documents = JSON.parse(response);
+                        documents.forEach(function (doc) {
+                            $('#documentsBody').append(`
+                                <tr>
+                                    <td>
+                                        <strong>${doc.judul}</strong><br>
+                                        ${doc.penulis}
+                                    </td>
+                                    <td>available</td>
+                                    <td>
+                                        <button class="borrow-btn" data-docid="${doc.doc_id}">Borrow</button>
+                                    </td>
+                                </tr>
+                            `);
+                        });
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Error searching documents:", status, error);
+                    }
+                });
+            }
+
+            function borrowDocument(docId) {
+                $.ajax({
+                    url: 'borrow.php',
+                    type: 'POST',
+                    data: { doc_id: docId },
+                    success: function (response) {
+                        try {
+                            const jsonResponse = JSON.parse(response);
+                            alert(jsonResponse.message);
+                            loadDocuments();  // Reload documents after borrowing
+                        } catch (e) {
+                            console.error("Invalid JSON response:", response);
+                            alert("An error occurred. Please try again.");
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Error borrowing document:", status, error);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
