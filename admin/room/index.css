@@ -1,0 +1,289 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+:root {
+  --primary-color: #ef5a22;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.custom-bg,
+.btn-custom {
+  background-color: var(--primary-color) !important;
+  color: white !important;
+}
+
+body {
+  font-family: "poppins" !important;
+  background-color: white !important;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.cardlendar {
+  background-color: #f1f1f1;
+  border-radius: 15px;
+  box-shadow: 0px 0px 10px #efefef;
+}
+
+.calendar-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 20px 15px;
+  border-bottom: 1px solid #efefef;
+}
+
+.current-month {
+  font-size: 20px;
+  font-weight: bold;
+  color: #19181a;
+}
+
+.calendar-toolbar .month-btn {
+  width: 40px;
+  aspect-ratio: 1;
+  text-align: center;
+  line-height: 40px;
+  font-size: 14px;
+  color: #19181a;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: 0.1s;
+}
+
+.calendar-toolbar .month-btn:hover,
+.month-day:hover,
+.btn:hover {
+  color: var(--primary-color);
+  box-shadow: inset 0px 0px 0px 1.5px var(--primary-color);
+}
+
+.calendar-toolbar .month-btn:focus,
+.month-day:focus,
+.btn:focus {
+  background-color: var(--primary-color);
+  color: #f8f7fa;
+}
+
+.calendar-days {
+  display: flex;
+  flex-wrap: wrap;
+  padding-inline: 18px;
+}
+
+.weekdays {
+  padding-top: 12px;
+  padding-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.calendar-days {
+  display: grid;
+  grid-template-columns: repeat(7, 40px);
+  gap: 5px;
+  padding-bottom: 12px;
+}
+
+.weekday-name,
+.current-day,
+.month-day,
+.padding-day {
+  width: 40px;
+  height: 40px;
+  color: #19181a;
+  text-align: center;
+  line-height: 40px;
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.weekday-name {
+  font-weight: 700;
+}
+
+.current-day {
+  background-color: var(--primary-color);
+  color: #f8f7fa;
+  border-radius: 100%;
+  font-weight: 700;
+  transition: 0.5s;
+  cursor: pointer;
+}
+
+.selected-date {
+  line-height: 40px;
+  background-color: #105ab4;
+  font-weight: 500;
+  text-align: center;
+  transition: background-color 0.5s, transform 0.5s; /* Smooth transition for background color */
+  cursor: pointer;
+  color: #f8f7fa;
+}
+
+.padding-day {
+  color: #a5a5a5;
+}
+
+.goto-buttons {
+  border-top: 1px solid #efefef;
+  padding-block: 18px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.btn {
+  border: none;
+  border-radius: 15px;
+  padding: 11px 13px;
+  color: #19181a;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+/* Table */
+.icon-btn {
+  background: none;
+  border: none;
+  color: #000;
+  cursor: pointer;
+}
+
+.color-preview {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border-radius: 5px;
+  cursor: pointer;
+  border: 2px solid #fff;
+  margin-right: 5px;
+  transition: transform 0.2s;
+}
+
+input[type="radio"]:checked + .color-preview {
+  transform: scale(1.2);
+  box-shadow: 0 0 0 2px #333;
+}
+
+input[type="radio"] {
+  display: none;
+}
+
+/* Styling for booked dates */
+.booked {
+  line-height: 40px;
+  background-color: #105ab4;
+  font-weight: 500;
+  text-align: center;
+  transition: background-color 0.5s, transform 0.5s; /* Smooth transition for background color */
+  cursor: pointer;
+  color: #f8f7fa;
+}
+
+/* Container */
+.containerCustom {
+  width: 100vw;
+  height: 100vh;
+  padding-top: 100px;
+}
+
+/* tf is this */
+/* Header Styling */
+.header {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f05a24;
+  padding: 10px 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+.logo {
+  width: 200px;
+}
+
+/* Navigation Container */
+#nav-container {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+/* Header Adjustments */
+.main-title {
+  margin-top: 80px; /* Adjust based on the header height */
+  text-align: center;
+  color: #333;
+}
+
+/* Burger Menu */
+.burger-menu {
+  display: inline-block;
+  font-size: 30px;
+  cursor: pointer;
+  color: white;
+}
+
+.menu {
+  display: none;
+  flex-direction: column;
+  position: fixed;
+  top: 50px;
+  left: 0;
+  width: 250px;
+  /* Mengatur tinggi maksimal menu */
+  height: calc(100vh - 50px);
+  background-color: #f05a24;
+  z-index: 999;
+  overflow-y: auto; /* Menambahkan scroll vertikal jika diperlukan */
+  direction: rtl; /* Mengatur agar scrollbar ada di sebelah kiri */
+}
+
+.menu a {
+  padding: 15px;
+  text-decoration: none;
+  color: white;
+  text-align: left;
+  border-bottom: 1px solid white;
+  display: block;
+  direction: ltr; /* Mengatur teks agar tetap terbaca dari kiri ke kanan */
+}
+
+.menu a:hover {
+  background-color: #e04a1f;
+}
+
+/* Styling scrollbar untuk browser berbasis WebKit (Chrome, Safari) */
+.menu::-webkit-scrollbar {
+  width: 12px;
+}
+
+.menu::-webkit-scrollbar-track {
+  background: #f05a24; /* Warna latar belakang track scrollbar */
+}
+
+.menu::-webkit-scrollbar-thumb {
+  background-color: #000000; /* Warna scrollbar */
+  border-radius: 10px; /* Membuat sudut scrollbar menjadi bulat */
+  border: 3px solid #f05a24; /* Warna latar belakang untuk memberikan efek */
+}
+
+/* Styling untuk Firefox */
+.menu {
+  scrollbar-width: thin;
+  scrollbar-color: #000000 #f05a24;
+}
