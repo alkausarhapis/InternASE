@@ -1,0 +1,82 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+/* Global */
+:root {
+  --primary-color: #ef5a22;
+}
+
+body {
+  font-family: "poppins" !important;
+}
+
+input,
+textarea {
+  border-color: black !important;
+}
+
+textarea {
+  resize: none !important;
+}
+
+.btn-custom {
+  background-color: var(--primary-color) !important;
+  color: white !important;
+}
+
+.custom-bg {
+  background-color: var(--primary-color);
+}
+
+/* calendar wrapper */
+#calendar-container {
+  height: 100vh !important;
+  width: 90vw;
+  margin: auto;
+}
+
+/* header calendar */
+.fc-button {
+  margin: auto 5px !important;
+  border-radius: 10px !important;
+  background-color: var(--primary-color) !important;
+  border: none !important;
+}
+
+.fc-toolbar-title {
+  color: var(--primary-color) !important;
+}
+
+.fc-col-header-cell-cushion,
+.fc-daygrid-day-number {
+  text-decoration: none !important;
+}
+
+.fc-col-header {
+  border-radius: 16px !important;
+}
+
+/* content calendar */
+.fc-col-header-cell-cushion {
+  color: black;
+  font-weight: 500;
+  font-size: 1.5rem;
+}
+
+.fc-daygrid-day-number {
+  color: black;
+}
+
+.fc-daygrid-event-dot {
+  border-color: var(--primary-color) !important;
+}
+
+.fc-event-title {
+  font-weight: 400 !important;
+  cursor: pointer;
+  font-size: 1rem;
+  color: black;
+}
+
+.fc-daygrid-day-frame {
+  cursor: pointer;
+}
