@@ -31,15 +31,15 @@ window.onload = function () {
   if (menu) {
     // Ensure menu exists before updating
     menu.innerHTML = `
-                <img src="assets/img/logo.jpeg" alt="Advanced Software Engineering Laboratory" class="logo mx-auto d-block">
-                <a href="../admin/index.php">Home</a>
-                <a href="../admin/document.php">Document</a>
-                <a href="../admin/agenda/index.php">Agenda</a>
-                <a href="#jadwal-ruangan">Jadwal Ruangan</a>
-                <a href="../admin/daftarAnggota.php">Data Anggota</a>
-                <a href="../admin/inventaris.php">Inventaris</a>
-                <a href="../admin/document.php">Daftar Pertemuan</a>
-                <a href="../admin/user.php">Daftar User</a>
+                <img src="/InternASE/admin/assets/img/logo.jpeg" alt="Advanced Software Engineering Laboratory" class="logo mx-auto d-block">
+                <a href="/InternASE/admin/index.php">Home</a>
+                <a href="/InternASE/admin/document.php">Document</a>
+                <a href="/InternASE/admin/agenda/">Agenda</a>
+                <a href="#">Jadwal Ruangan</a>
+                <a href="/InternASE/admin/dataAnggota.php">Data Anggota</a>
+                <a href="/InternASE/admin/inventaris.php">Inventaris</a>
+                <a href="/InternASE/admin/daftarpertemuan.php">Daftar Pertemuan</a>
+                <a href="/InternASE/admin/user.php">Daftar User</a>
             `;
   } else {
     console.error("Menu element not found");
