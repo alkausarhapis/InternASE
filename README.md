@@ -10,6 +10,12 @@ Developed by MDR Group, the Aplikasi Manajemen Laboratorium Riset is a software 
 - Inventory List
 - Meeting List
 
+## Use this locally
+```
+git clone https://github.com/alkausarhapis/InternASE.git
+```
+Then import the database
+
 ## Requirements & Documents
 - [Slide](https://docs.google.com/presentation/d/1F563L1lHWbnb9vfQJ2FBydqPKaZaT7fC-R8yRsQXodg/edit?usp=sharing)
 - [Model & Brief](https://whimsical.com/brief-NpQ4WY6xheAyiM5JRszL8e)
